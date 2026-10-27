@@ -1,0 +1,27 @@
+const { chromium } = require('playwright');
+const fs = require('node:fs');
+(async () => {
+  fs.mkdirSync('qa/screenshots', { recursive: true });
+  const browser = await chromium.launch({ channel: 'chrome', headless: true, args: ['--enable-unsafe-swiftshader'] });
+  const page = await browser.newPage({viewport: {width: 1440, height: 900}});
+  const errors=[]; page.on('pageerror', e=>errors.push(e.message));
+  await page.goto('http://127.0.0.1:5180/?debug=1', {waitUntil:'networkidle'});
+  await page.waitForFunction(()=>window.planet?.mode==='intro');
+  await page.screenshot({path:'qa/screenshots/claude-intro.png'});
+  await page.locator('[data-intro="land"]').click();
+  await page.waitForFunction(()=>window.planet?.mode==='play', {timeout:30000});
+  await page.screenshot({path:'qa/screenshots/claude-ground.png'});
+  console.log('State', await page.evaluate(()=>({mode:planet.mode,render:planet.renderer.renderer.info.render,position:planet.player.position.toArray(),visibleLabels:document.querySelectorAll('.world-label:not(.is-hidden)').length})));
+  await page.keyboard.down('w');await page.waitForTimeout(1600);await page.keyboard.up('w');
+  await page.screenshot({path:'qa/screenshots/claude-walking.png'});
+  await page.keyboard.press('m');await page.waitForFunction(()=>planet.mode==='map' && planet.rig.mode==='orbit');
+  await page.screenshot({path:'qa/screenshots/claude-map.png'});
+  await page.keyboard.press('j');await page.screenshot({path:'qa/screenshots/claude-journal.png'});
+  console.log('Errors', errors);
+  await page.setViewportSize({width:390,height:844});
+  await page.screenshot({path:'qa/screenshots/claude-mobile-journal.png'});
+  await page.reload({waitUntil:'networkidle'});await page.waitForFunction(()=>planet?.mode==='intro');
+  await page.screenshot({path:'qa/screenshots/claude-mobile-intro.png'});
+  console.log('Mobile overflow',await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth));
+  await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});

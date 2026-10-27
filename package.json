@@ -1,0 +1,25 @@
+{
+  "name": "planete-mounir",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "predev": "node scripts/build-wasm.mjs",
+    "dev": "vite",
+    "build": "node scripts/build-wasm.mjs && vite build",
+    "build:wasm": "node scripts/build-wasm.mjs",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test qa/*.test.mjs",
+    "test:rust": "node scripts/build-wasm.mjs --test",
+    "test:browser": "node qa/game-smoke.cjs && node qa/ui-regressions.cjs && node qa/beacon-render.cjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/space-grotesk": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.1",
+    "vite": "^7.1.0"
+  }
+}

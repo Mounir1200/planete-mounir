@@ -1,0 +1,22 @@
+.panel-brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 1rem;
+  margin: 0 0 1.2rem;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--brand-ink);
+}
+.panel-brand img { width: auto; height: 58px; max-width: calc(100% - 30px); object-fit: contain; object-position: left; }
+.panel[data-brand='essca'] .panel-brand img { height: 48px; }
+.panel[data-brand='moov'] .panel-brand img { height: 66px; }
+.panel[data-brand='rwu'] .panel-brand img { height: 64px; }
+.panel[data-brand='ktu'] .panel-brand img { height: 84px; }
+.panel[data-brand]:not([data-brand='']) .panel-section h3,
+.panel[data-brand]:not([data-brand='']) .panel-tagline,
+.panel[data-brand]:not([data-brand='']) .experience-headline,
+.panel[data-brand]:not([data-brand='']) .link { color: var(--brand-ink); }
+.panel[data-brand]:not([data-brand='']) .button-primary { background: var(--brand-ink); box-shadow: none; }

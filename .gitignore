@@ -1,0 +1,24 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+test-results/
+rust/**/target/
+.claude/
+
+# Raw personal source files: the site only ships the prepared copies in public/.
+/DABIRE_Mounir-mai_2026.jpg
+/DABIRE_Mounir_CV_*.pdf
+/buste_mounir.png
+/photo-linkedin-2d-mounir.png
+/Image ChatGPT*.png
+/life/
+/gallery/
+/archive-chatgpt/
+
+# QA material that is generated or not ours to redistribute.
+qa/screenshots/
+qa/reference/
+qa/references/
+qa/brand-source-*
+qa/avatar-before-gemini.js
